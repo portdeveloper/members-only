@@ -7,7 +7,11 @@ router.get("/", (req, res) => {
 });
 
 router.get("/signup", userController.getSignup);
-router.post("/signup", userController.postSignup);
+router.post(
+  "/signup",
+  userController.signupValidations,
+  userController.postSignup
+);
 
 router.get("/login", userController.getLogin);
 router.post("/login", userController.postLogin);
