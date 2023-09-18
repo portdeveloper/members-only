@@ -38,7 +38,12 @@ function ensureAuthenticated(req, res, next) {
 router.get("/join-club", ensureAuthenticated, userController.getJoinClub);
 router.post("/join-club", userController.postJoinClub);
 
+router.get("/admin-login", ensureAuthenticated, userController.getAdminLogin);
+router.post("/admin-login", userController.postAdminLogin);
+
 router.get("/messages/new", messageController.getNewMessage);
 router.post("/messages/new", messageController.postNewMessage);
+
+router.post("/messages/:id/delete", messageController.deleteMessage);
 
 module.exports = router;

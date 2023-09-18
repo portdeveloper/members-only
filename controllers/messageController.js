@@ -23,3 +23,15 @@ exports.postNewMessage = async (req, res) => {
     console.log(error);
   }
 };
+
+exports.deleteMessage = async (req, res) => {
+  if (!req.user && req.user.membership !== "admin") {
+    return res.redirect("/login");
+  }
+  try {
+    await Message.findByIdAndDelete(req.params.id);
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+};

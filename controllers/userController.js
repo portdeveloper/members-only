@@ -62,7 +62,7 @@ exports.postLogin = passport.authenticate("local", {
 });
 
 exports.getJoinClub = (req, res) => {
-  res.render("join-club"); 
+  res.render("join-club");
 };
 
 exports.postJoinClub = async (req, res) => {
@@ -74,5 +74,21 @@ exports.postJoinClub = async (req, res) => {
     res.redirect("/");
   } else {
     res.redirect("/join-club");
+  }
+};
+
+exports.getAdminLogin = (req, res) => {
+  res.render("admin-login");
+};
+
+exports.postAdminLogin = async (req, res) => {
+  const { passcode } = req.body;
+
+  if (passcode === process.env.ADMIN_PASSCODE) {
+    req.user.membership = "admin";
+    await req.user.save();
+    res.redirect("/");
+  } else {
+    res.redirect("/admin-login");
   }
 };

@@ -9,6 +9,9 @@
     <h1>Welcome to <%= title %></h1>
     <% if (currentUser) { %>
     <p>welcome <%= currentUser.firstName %></p>
+    <% if (currentUser.membership === "admin") { %>
+    <strong>hi admin</strong>
+    <% } %>
     <a href="/logout">Logout</a>
     <% } else { %>
     <p>Welcome, Guest</p>
@@ -31,7 +34,12 @@
         >
         (on <%= message.timestamp.toDateString() %>) <% } else { %>
         <strong>login to see the poster name</strong>
-        <% } %> : <%= message.content %>
+        <% } %> : <%= message.content %> <% if (currentUser &&
+        currentUser.membership === "admin") { %>
+        <form action="/messages/<%= message._id %>/delete" method="POST">
+          <button type="submit">Delete</button>
+        </form>
+        <% } %>
       </li>
       <% }); %>
     </ul>
