@@ -8,7 +8,11 @@
   <body>
     <h1>Create a New Message</h1>
 
-    <form action="/messages" method="post">
+    <form action="/messages/new" method="post">
+      <label for="title">Title</label>
+      <input name="title" type="text" placeholder="Title" required />
+      <label for="content">Message</label>
+      <br />
       <textarea name="content" placeholder="Your message" required></textarea
       ><br />
       <button type="submit">Post</button>
