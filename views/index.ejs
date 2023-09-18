@@ -25,7 +25,13 @@
     <ul>
       <% messages.forEach(message => { %>
       <li>
-        <strong><%= message.user.firstName %> <%= message.user.lastName %></strong>: <%= message.content %>
+        <% if (currentUser && currentUser.membership !== "noaccess") { %>
+        <strong
+          ><%= message.user.firstName %> <%= message.user.lastName %></strong
+        >
+        (on <%= message.timestamp.toDateString() %>) <% } else { %>
+        <strong>login to see the poster name</strong>
+        <% } %> : <%= message.content %>
       </li>
       <% }); %>
     </ul>
