@@ -68,6 +68,11 @@ passport.deserializeUser(async (id, done) => {
 });
 
 app.use("/", routes);
+app.get("/logout", (req, res) => {
+  req.logout(() => {
+    res.redirect("/");
+  });
+});
 
 const PORT = 3000;
 app.listen(PORT, () => {
