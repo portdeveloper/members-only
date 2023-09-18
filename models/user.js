@@ -7,6 +7,11 @@ const userSchema = new Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  membership: {
+    type: String,
+    enum: ["noaccess", "access", "admin"],
+    default: "noaccess",
+  },
   created_at: { type: Date, default: Date.now },
   messages: [{ type: Schema.Types.ObjectId, ref: "Message" }],
 });

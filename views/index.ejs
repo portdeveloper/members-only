@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Welcome to <%= title %></h1>
-    <p>welcome <%= currentUser %> </p>
-</body>
+    <% if (currentUser) { %>
+    <p>welcome <%= currentUser.firstName %></p>
+    <a href="/logout">Logout</a>
+    <% } else { %>
+    <p>Welcome, Guest</p>
+    <a href="/signup">Sign Up</a>
+    <a href="/login">Login</a>
+    <% } %> <% if (currentUser && currentUser.membership !== "noaccess") { %>
+    <p>You are a club member!</p>
+    <a href="/messages/new">Create a new message</a>
+    <% } else if (currentUser && currentUser.membership === "noaccess") { %>
+    <a href="/join-club">Join the club to access exclusive content.</a>
+    <% } %>
+  </body>
 </html>

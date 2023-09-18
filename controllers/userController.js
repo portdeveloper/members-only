@@ -33,7 +33,6 @@ exports.signupValidations = [
 exports.postSignup = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    // Handle errors, perhaps render the form again with error messages
     return res.status(400).json({ errors: errors.array() });
   }
 
@@ -61,3 +60,19 @@ exports.postLogin = passport.authenticate("local", {
   successRedirect: "/",
   failureRedirect: "/login",
 });
+
+exports.getJoinClub = (req, res) => {
+  res.render("join-club"); 
+};
+
+exports.postJoinClub = async (req, res) => {
+  const { passcode } = req.body;
+
+  if (passcode === process.env.SECRET_PASSCODE) {
+    req.user.membership = "access";
+    await req.user.save();
+    res.redirect("/");
+  } else {
+    res.redirect("/join-club");
+  }
+};
