@@ -2,9 +2,19 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 const messageController = require("../controllers/messageController");
+const Message = require("../models/message");
 
-router.get("/", (req, res) => {
-  res.render("index", { title: "Members Only" });
+router.get("/", async (req, res) => {
+  try {
+    const messages = await Message.find({}).sort("-date").populate("user");
+    res.render("index", {
+      title: "Your Title",
+      messages,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 router.get("/signup", userController.getSignup);
